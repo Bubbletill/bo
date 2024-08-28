@@ -1,0 +1,58 @@
+﻿<Window x:Class="BT_BO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BT_BO" xmlns:src="clr-namespace:BT_COMMONS.Helpers;assembly=BT-COMMONS" xmlns:components="clr-namespace:BT_BO.Components"
+        mc:Ignorable="d"
+        Title="Bubbletill Back Office" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized">
+    <Window.Resources>
+        <src:Ticker x:Key="ticker" />
+    </Window.Resources>
+    <Grid x:Name="BOParentGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="467*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Style="{DynamicResource BTParentHeader}" x:Name="BOParentHeader" Grid.Row="0" Grid.RowSpan="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120*"/>
+                    <ColumnDefinition Width="802*"/>
+                    <ColumnDefinition Width="197*"/>
+                    <ColumnDefinition Width="114*"/>
+                    <ColumnDefinition Width="186*"/>
+                    <ColumnDefinition Width="234*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Source="/Assets/logo-short.png" RenderTransformOrigin="0.5,0.5" Margin="10,0,0,0">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="5"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <GroupBox Panel.ZIndex="1" x:Name="BOParentErrorBox" Grid.Column="1" Background="Red" BorderBrush="Red" BorderThickness="0,0,0,0" ClipToBounds="True" RenderTransformOrigin="0.5,0.5" >
+                    <GroupBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1" ScaleY="0.95"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </GroupBox.RenderTransform>
+                    <TextBlock x:Name="BOParentErrorBoxText" Foreground="White" FontSize="24" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" TextWrapping="Wrap"/>
+                </GroupBox>
+
+                <Label x:Name="BOParentHeader_DateTime" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Content="{Binding Source={StaticResource ticker} ,Path=Now, Mode=OneWay}" ContentStringFormat="dd/MM/yyyy HH:mm"/>
+                <TextBlock x:Name="BOParentHeader_Status" Grid.Column="3" TextWrapping="Wrap" Text="SD Open" VerticalAlignment="Center" FontSize="20"/>
+                <TextBlock x:Name="BOParentHeader_Store" Grid.Column="4" TextWrapping="Wrap" Text="Store#" VerticalAlignment="Center" FontSize="20"/>
+                <TextBlock x:Name="BOParentHeader_Operator" Grid.Column="5" TextWrapping="Wrap" Text="Operator#" VerticalAlignment="Center" FontSize="20"/>
+            </Grid>
+        </GroupBox>
+        <components:ActionableContentPresenter x:Name="BOViewContainer" Grid.Row="1" Content="Loading..." HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </Grid>
+</Window>

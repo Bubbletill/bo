@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="BT_BO.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BT_BO.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="995" d:DesignWidth="1920" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="144*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="59*"/>
+            <RowDefinition Height="297*"/>
+            <RowDefinition Height="304*"/>
+            <RowDefinition Height="335*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Logo -->
+        <Image Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Source="/Assets/logo.png" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Stretch="UniformToFill">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <!-- Login Form -->
+        <GroupBox Grid.Row="2" Grid.Column="1" BorderThickness="0,0,0,0" Background="#ffd2d2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="181*"/>
+                    <ColumnDefinition Width="666*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="39*"/>
+                    <RowDefinition Height="76*"/>
+                    <RowDefinition Height="76*"/>
+                    <RowDefinition Height="92*"/>
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Left" Grid.Row="1" Text="User ID" VerticalAlignment="Center" FontSize="30"/>
+                <TextBlock HorizontalAlignment="Left" Grid.Row="2" Text="Password" VerticalAlignment="Center" FontSize="30" TextWrapping="WrapWithOverflow"/>
+                <TextBox x:Name="UserIdBox" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30" Width="Auto" KeyUp="UserIdBox_KeyUp" />
+                <PasswordBox x:Name="PasswordBox" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" FontSize="30" Width="Auto" KeyUp="PasswordBox_KeyUp" />
+                <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <Button x:Name="LoginButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="Login" Style="{DynamicResource BTHorizontalButton}" Click="LoginButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="ExitButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="Exit" Style="{DynamicResource BTHorizontalButton}" Click="ExitButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <TextBlock x:Name="VersionText" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" Text="Back Office Version 2.0" />
+
+
+    </Grid>
+</UserControl>

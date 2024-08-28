@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BT-BO": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

@@ -75,7 +75,7 @@ public partial class LoginView : UserControl
             }
 
             MainWindow mw = App.AppHost.Services.GetRequiredService<MainWindow>();
-            _controller.HeaderError("Login complete");
+            mw.BOViewContainer.Content = App.AppHost.Services.GetRequiredService<HomeView>();
         }
         else
         {

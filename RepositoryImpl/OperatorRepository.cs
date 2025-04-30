@@ -80,7 +80,7 @@ public class OperatorRepository : IOperatorRepository
             return new OperatorLoginResponse
             {
                 ID = null,
-                Message = "Insufficient permission to use back office."
+                Message = "Insufficient permission to access back office."
             };
         }
 

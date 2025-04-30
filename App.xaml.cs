@@ -1,6 +1,10 @@
-﻿using BT_BO.RepositoryImpl;
+﻿using BT_BO.Buttons;
+using BT_BO.Buttons.Menu;
+using BT_BO.Buttons.Reports;
+using BT_BO.RepositoryImpl;
 using BT_BO.Splash;
 using BT_BO.Views;
+using BT_BO.Views.Reports;
 using BT_COMMONS;
 using BT_COMMONS.App;
 using BT_COMMONS.DataRepositories;
@@ -20,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BT_BO;
 
@@ -29,6 +34,9 @@ namespace BT_BO;
 public partial class App : Application
 {
     public static IHost? AppHost { get; private set; }
+
+    public static List<HomeButton> HomeButtons;
+    public static List<ReportSelectionButton> ReportSelectionButtons;
 
     public App()
     {
@@ -44,9 +52,13 @@ public partial class App : Application
 
                 services.AddSingleton<DatabaseAccess>(x => new DatabaseAccess(config["LocalConnectionString"], config["ControllerConnectionString"]));
                 services.AddSingleton<IOperatorRepository, OperatorRepository>();
+                services.AddSingleton<IButtonRepository, ButtonRepository>();
 
                 services.AddSingleton<MainWindow>();
                 services.AddViewFactory<LoginView>();
+                services.AddViewFactory<HomeView>();
+
+                services.AddViewFactory<ReportSelectionView>();
 
                 services.AddSingleton<BOController>();
             }).Build();
@@ -58,16 +70,13 @@ public partial class App : Application
         {
             BOSplashScreen splash = new BOSplashScreen();
             splash.Show();
-            Trace.WriteLine("starting app host");
 
             splash.StatusText.Text = "Starting AppHost";
             await AppHost!.StartAsync();
 
-            Trace.WriteLine("done");
             var controller = AppHost.Services.GetRequiredService<BOController>();
 
             splash.StatusText.Text = "Loading data";
-            Trace.WriteLine("loading data");
             // Load data.json
             try
             {
@@ -90,9 +99,8 @@ public partial class App : Application
                 Shutdown();
                 return;
             }
-            Trace.WriteLine("done");
 
-            Trace.WriteLine("groups");
+            // Load groups
             splash.StatusText.Text = "Setting up operator groups";
             var operRepo = AppHost.Services.GetRequiredService<IOperatorRepository>();
             var operGroups = await operRepo.GetOperatorGroups();
@@ -101,9 +109,16 @@ public partial class App : Application
                 group.Parse();
                 controller.OperatorGroups.Add(group.Id, group);
             }
-            Trace.WriteLine("done");
 
-            Trace.WriteLine("starting");
+            // Load buttons
+            splash.StatusText.Text = "Setting up configured buttons";
+            var btnRepo = AppHost.Services.GetRequiredService<IButtonRepository>();
+
+            HomeButtons = await btnRepo.GetHomeButtons();
+            ReportSelectionButtons = await btnRepo.GetReportSelectionButtons();
+
+            // Start BO
+            splash.StatusText.Text = "Starting Back Office...";
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
             splash.Close();
@@ -122,5 +137,27 @@ public partial class App : Application
         await AppHost!.StopAsync();
 
         base.OnExit(e);
+    }
+
+    public static Button CreateButton(IButtonData buttonData, Style buttonStyle)
+    {
+        var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
+        var controller = AppHost.Services.GetRequiredService<BOController>();
+        Button button = new Button();
+        button.Style = buttonStyle;
+        button.Content = buttonData.Name;
+        button.Click += (s, e) =>
+        {
+            if (controller.CurrentOperator.HasBoolPermission(buttonData.Permission))
+            {
+                buttonData.OnClick(mainWindow);
+            }
+            else
+            {
+                controller.HeaderError("Insufficient permission.");
+            }
+        };
+
+        return button;
     }
 }

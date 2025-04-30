@@ -40,4 +40,13 @@
     <Resource Include="Assets\logo-bo.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Components\ViewInformationComponent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Reports\ReportSelectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

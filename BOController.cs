@@ -1,4 +1,5 @@
-﻿using BT_COMMONS.DataRepositories;
+﻿using BT_BO.Views;
+using BT_COMMONS.DataRepositories;
 using BT_COMMONS.Operators;
 using BT_COMMONS.Transactions;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,5 +45,12 @@ public class BOController
         MainWindow mw = App.AppHost.Services.GetRequiredService<MainWindow>();
         mw.BOParentHeader_Operator.Text = "Operator# " + oper.OperatorId;
         return true;
+    }
+
+    public void Logout()
+    {
+        MainWindow mw = App.AppHost.Services.GetRequiredService<MainWindow>();
+        mw.BOParentHeader_Operator.Text = "Operator# ";
+        mw.BOViewContainer.Content = App.AppHost.Services.GetRequiredService<LoginView>();
     }
 }

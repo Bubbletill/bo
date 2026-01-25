@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
   </ItemGroup>
@@ -41,6 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Components\KeypadComponent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\ViewInformationComponent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

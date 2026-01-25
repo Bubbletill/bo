@@ -39,6 +39,7 @@ public partial class LoginView : UserControl
 
         VersionText.Text = "Back Office Version " + FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
         UserIdBox.Focus();
+        Keypad.DisableButton(Keypad.PeriodButton);
     }
 
     private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -89,7 +90,7 @@ public partial class LoginView : UserControl
         Application.Current.Shutdown();
     }
 
-    private void UserIdBox_KeyUp(object sender, KeyEventArgs e)
+    private void UserIdBox_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.Enter)
         {
@@ -98,7 +99,7 @@ public partial class LoginView : UserControl
         }
     }
 
-    private void PasswordBox_KeyUp(object sender, KeyEventArgs e)
+    private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.Enter)
         {

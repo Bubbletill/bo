@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BT_BO.Views"
+             xmlns:local="clr-namespace:BT_BO.Views" xmlns:components="clr-namespace:BT_BO.Components"
              mc:Ignorable="d" 
              d:DesignHeight="995" d:DesignWidth="1920" Background="White">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="89*"/>
-            <ColumnDefinition Width="144*"/>
-            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="467*"/>
+            <ColumnDefinition Width="480*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="59*"/>
@@ -37,8 +37,8 @@
                 </Grid.RowDefinitions>
                 <TextBlock HorizontalAlignment="Left" Grid.Row="1" Text="User ID" VerticalAlignment="Center" FontSize="30"/>
                 <TextBlock HorizontalAlignment="Left" Grid.Row="2" Text="Password" VerticalAlignment="Center" FontSize="30" TextWrapping="WrapWithOverflow"/>
-                <TextBox x:Name="UserIdBox" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30" Width="Auto" KeyUp="UserIdBox_KeyUp" />
-                <PasswordBox x:Name="PasswordBox" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" FontSize="30" Width="Auto" KeyUp="PasswordBox_KeyUp" />
+                <TextBox x:Name="UserIdBox" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30" Width="Auto" KeyDown="UserIdBox_KeyDown" />
+                <PasswordBox x:Name="PasswordBox" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" FontSize="30" Width="Auto" KeyDown="PasswordBox_KeyDown" />
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <Button x:Name="LoginButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="Login" Style="{DynamicResource BTHorizontalButton}" Click="LoginButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     <Button x:Name="ExitButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="Exit" Style="{DynamicResource BTHorizontalButton}" Click="ExitButton_Click"/>
@@ -48,6 +48,8 @@
 
         <TextBlock x:Name="VersionText" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" Text="Back Office Version 2.0" />
 
+        <!-- Keypad -->
+        <components:KeypadComponent x:Name="Keypad" Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" MaxHeight="700" MaxWidth="500"/>
 
     </Grid>
 </UserControl>
